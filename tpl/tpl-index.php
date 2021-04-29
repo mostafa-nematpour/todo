@@ -1,5 +1,5 @@
 <?php
-echo implode(' - ',$tasks).' -- '.rand(1,100);
+// echo implode(' - ', $tasks).' -- '.rand(1, 100);
 ?>
 
 

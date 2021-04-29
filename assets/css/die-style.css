@@ -1,0 +1,54 @@
+  body {
+  	  background-color: #bbb;
+   	}
+
+	h3 { 
+	    text-align:center; 
+	    line-height:33px;
+    }
+
+    div.box {
+        height:100px;
+        width:200px;
+        background-color:#eee;
+        border:1px solid #aaa;
+        position:relative;					/* damit nachher :before und :after mit position:absolute */
+        									/* absolut an der box ausgerichtet werden können 	      */
+        top:50px;
+        left:50px;
+        border-radius:7px;
+    }
+
+    .box:before {
+        position:absolute;					/* positioniert sich an box                 */
+        left:-20px; 						/* border-breite mal 2                      */
+        									/* für die andere Seite wäre es right:-20px */ 
+        top:25px;
+        content:'';							/* leerer Inhalt */
+        height:0;
+        width:0;
+        border:10px solid transparent;
+        z-index:1; 							/* graues Kaestchen unterste Ebene */
+    }
+
+    .box:after{
+        position:absolute; 					/* positioniert sich an box                      */
+        left:-18px; 						/* border-breite mal 2 minus dicke des Schattens */
+        									/* für die andere Seite wäre es right:-20px      */
+      	top:25px;
+        content:''; 						/* leerer Inhalt */
+        height:0;
+        width:0;
+        border:10px solid transparent;
+        z-index:2; 							/* weißes Kaestchen über der Ebene :before */
+    }
+
+    .box:before {
+        border-right-color:#aaa;			/* stellt den Schatten dar                        */
+       										/* für die andere Seite wäre es border-left-color */
+    }  
+
+    .box:after {
+        border-right-color:#eee;			/* stellt das kleine weiße Dreieck dar            */
+        									/* für die andere Seite wäre es border-left-color */
+    } 						

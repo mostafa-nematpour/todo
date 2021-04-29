@@ -1,5 +1,6 @@
 
 <?php
-function getTasks(){
+function getTasks()
+{
     return [1,1,2,3,4];
 }
