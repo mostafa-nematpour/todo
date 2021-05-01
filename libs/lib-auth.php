@@ -9,3 +9,8 @@ function register($user, $password)
 {
     return 1;
 }
+
+function getCurrentUserId()
+{
+    return 1;
+}

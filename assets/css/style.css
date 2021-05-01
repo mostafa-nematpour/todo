@@ -12,11 +12,23 @@ body {
     font-smoothing: antialiased;
 }
 
+input {
+    padding: 3px 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.btn {
+    padding: 3px 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
 .page {
     position: absolute;
-    width: 80%;
+    width: 90%;
     height: 80%;
-    left: 10%;
+    left: 5%;
     top: 10%;
     background-color: rgba(255, 255, 255, 0.7);
     -moz-border-radius: 4px;
@@ -89,6 +101,14 @@ body {
     background-color: rgba(227, 234, 235, 0.8);
 }
 
+a.remove {
+    float: right;
+}
+
+a.remove:hover {
+    color: rgb(255, 31, 61) !important;
+}
+
 .main .nav .searchbox {
     width: 170px;
     height: 30px;
@@ -131,6 +151,11 @@ body {
 
 .main .nav .menu ul {
     padding-left: 0px;
+}
+
+.main .nav .menu ul li a {
+    text-decoration: none;
+    color: #555;
 }
 
 .main .nav .menu ul li {
