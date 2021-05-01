@@ -6,7 +6,8 @@ function getCurrentUrl()
 }
 
 
-function diePage($msg){
+function diePage($msg, $titel="Error")
+{
     include_once "./tpl/tpl-die.php";
     die();
 }

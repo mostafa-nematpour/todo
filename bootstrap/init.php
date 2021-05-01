@@ -12,13 +12,10 @@ try {
         $database_config->pass
     );
 } catch (PDOException $e) {
-    diePage($e->getMessage());
+    diePage($e->getMessage(), "Database Connection Faile");
 }
-echo "Not failed";
+// echo "Not failed";
 
 
 include "libs/lib-auth.php";
 include "libs/lib-tasks.php";
-
-
-
