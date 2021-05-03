@@ -28,8 +28,20 @@ function deleteFolder($folder_id)
     return $stmt->rowCount();
 }
 
-function addFolder($data)
+function addFolder($folderName)
 {
+    $current_user_id = getCurrentUserId();
+
+    global $PDO;
+    try {
+        $sql = "INSERT INTO `folder` (`name`, `user_id`) VALUES (:folderName, :current_user_id);";
+        $stmt = $PDO->prepare($sql);
+        $stmt->execute([':folderName' => $folderName, ':current_user_id' => $current_user_id]);
+    } catch (Exception $e) {
+        diePage($e->getMessage(), "add Folder Faile");
+    }
+
+    return '{"response":'.$stmt->rowCount().',"id":'.$PDO->lastInsertId().'}';
 }
 function getTasks()
 {
@@ -43,4 +55,3 @@ function removeTasks()
 {
     return [1, 1, 2, 3, 4];
 }
-

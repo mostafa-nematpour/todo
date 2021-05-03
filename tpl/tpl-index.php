@@ -10,7 +10,8 @@
   <meta charset="UTF-8">
   <title><?= SITE_TITEL ?></title>
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
-
+  <link rel="icon" href="<?= BASE_URL ?>assets/img/t.svg">
+  <title>todo</title>
 </head>
 
 <body>
@@ -18,7 +19,7 @@
   <div class="page">
     <div class="pageHeader">
       <div class="title">Dashboard</div>
-      <div class="userPanel"><i class="fa fa-chevron-down"></i><span class="username">John Doe </span><img src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/73.jpg" width="40" height="40" /></div>
+      <div class="userPanel"><i class="fa fa-chevron-down"></i><span class="username">John Doe </span><img src="<?= BASE_URL ?>assets/img/user.svg" width="40" height="40" /></div>
     </div>
     <div class="main">
       <div class="nav">
@@ -29,7 +30,11 @@
         </div>
         <div class="menu">
           <div class="title">Folders</div>
-          <ul>
+          <div>
+          <input type="text" id="addFolderInput" style="width: 60%; margin-left: 3%;" placeholder="Add New Folder" />
+          <button class="btn clickable" id="addFolderBtn">+</button>
+        </div>
+          <ul class="folder-list">
             <?php foreach ($folders as $folder) : ?>
               <li>
                 <a href="?foler_id=<?= $folder->id ?>"><i class="fa fa-folder"></i><?= $folder->name ?></a>
@@ -39,14 +44,12 @@
               </li>
             <?php endforeach; ?>
 
-            <li class="active"> <i class="fa fa-folder-open"></i>Manage Folder</li>
           </ul>
+          <li class="active"> <i class="fa fa-folder-open"></i>Manage Folder</li>
+
         </div>
 
-        <div>
-          <input type="text" id="newFolderInput" style="width: 70%; margin-left: 3%;" placeholder="Add New Folder" />
-          <button class="btn" id="newItemBtn">+</button>
-        </div>
+      
 
       </div>
       <div class="view">
@@ -90,9 +93,46 @@
     </div>
   </div>
   <!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="<?= BASE_URL ?>assets/js/script.js"></script>
 
+  <script>
+    $(document).ready(function() {
+      $("#addFolderBtn").click(function(e) {
+        var input = $('input#addFolderInput');
+        // alert(input.val());
+        $.ajax({
+          url: "process/ajaxHandler.php",
+          method: "post",
+          data: {
+            action: "addFolder",
+            folderName: input.val()
+          },
+          success: function(response) {
+            if (IsValidJSONString(response)) {
+              var obj = JSON.parse(response);
+              if (obj["response"] == '1') {
+                $('<li> <a href="?foler_id=' + obj["id"] + '"><i class="fa fa-folder"></i>' + input.val() + '</a> <a href="?delete_folder=' + obj["id"] + '" class="remove"><i class="fa fa-trash-o"></i></a> </li>').appendTo('ul.folder-list');
+              } else {
+                console.log(response);
+              }
+            } else {
+              console.log("response are not json");
+            }
+          }
+        });
+      })
+
+      function IsValidJSONString(str) {
+        try {
+          JSON.parse(str);
+        } catch (e) {
+          return false;
+        }
+        return true;
+      }
+    });
+  </script>
 </body>
 
 </html>

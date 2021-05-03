@@ -6,8 +6,17 @@ function getCurrentUrl()
 }
 
 
-function diePage($msg, $titel="Error")
+function isAjaxRequest()
 {
-    include_once "./tpl/tpl-die.php";
+    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+        return true;
+    }
+    return false;
+}
+
+
+function diePage($msg, $titel = "Error")
+{
+    include_once BASE_PATH . "tpl/tpl-die.php";
     die();
 }
