@@ -163,6 +163,11 @@ a.remove:hover {
     color: #555;
 }
 
+.main .nav .menu ul li a .fa-folder-open {
+    text-decoration: none;
+    color: #79BC46;
+}
+
 .main .nav .menu ul li {
     cursor: pointer;
     list-style: none;

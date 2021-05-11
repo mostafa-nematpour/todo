@@ -20,3 +20,11 @@ function diePage($msg, $titel = "Error")
     include_once BASE_PATH . "tpl/tpl-die.php";
     die();
 }
+
+function dd($var)
+{
+    echo "<pre style='color:red'>";
+    var_dump($var);
+    echo "</pre> <hr>";
+
+}

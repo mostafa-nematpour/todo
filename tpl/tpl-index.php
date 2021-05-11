@@ -1,8 +1,3 @@
-<?php
-// echo implode(' - ', $tasks).' -- '.rand(1, 100);
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,63 +26,63 @@
         <div class="menu">
           <div class="title">Folders</div>
           <div>
-          <input type="text" id="addFolderInput" style="width: 60%; margin-left: 3%;" placeholder="Add New Folder" />
-          <button class="btn clickable" id="addFolderBtn">+</button>
-        </div>
+            <input type="text" id="addFolderInput" style="width: 60%; margin-left: 3%;" placeholder="Add New Folder" />
+            <button class="btn clickable" id="addFolderBtn">+</button>
+          </div>
           <ul class="folder-list">
+            <li class="active">
+              <a href="?foler_id=-1"><i class="fa fa-folder-open"></i>All</a>
+              
+            </li>
+
             <?php foreach ($folders as $folder) : ?>
               <li>
                 <a href="?foler_id=<?= $folder->id ?>"><i class="fa fa-folder"></i><?= $folder->name ?></a>
 
-                <a href="?delete_folder=<?= $folder->id ?>" class="remove"><i class="fa fa-trash-o"></i></a>
+                <a href="?delete_folder=<?= $folder->id ?>" class="remove"><i class="fa fa-trash-o" onclick="return confirm('are you sure to delete this item?');"></i></a>
 
               </li>
             <?php endforeach; ?>
 
           </ul>
-          <li class="active"> <i class="fa fa-folder-open"></i>Manage Folder</li>
 
         </div>
 
-      
 
       </div>
       <div class="view">
         <div class="viewHeader">
-          <div class="title">Manage Tasks</div>
+          <div class="title" style="width: 42%;">
+            <input type="text" id="taskNameInput" style="width: 100%;margin-left: 3%;line-height: 30px;" placeholder="Add New Task">
+          </div>
           <div class="functions">
             <div class="button active">Add New Task</div>
             <div class="button">Completed</div>
-            <div class="button inverz"><i class="fa fa-trash-o"></i></div>
           </div>
         </div>
         <div class="content">
           <div class="list">
             <div class="title">Today</div>
             <ul>
-              <li class="checked"><i class="fa fa-check-square-o"></i><span>Update team page</span>
-                <div class="info">
-                  <div class="button green">In progress</div><span>Complete by 25/04/2014</span>
-                </div>
-              </li>
-              <li><i class="fa fa-square-o"></i><span>Design a new logo</span>
-                <div class="info">
-                  <div class="button">Pending</div><span>Complete by 10/04/2014</span>
-                </div>
-              </li>
-              <li><i class="fa fa-square-o"></i><span>Find a front end developer</span>
-                <div class="info"></div>
-              </li>
+
+              <?php foreach ($tasks as $task) : ?>
+
+                <li class="<?= $task->is_done ? 'checked' : ''; ?>">
+                  <i class="<?= $task->is_done ? 'fa fa-check-square-o' : 'fa fa-square-o'; ?>"></i>
+                  <span><?= $task->title ?></span>
+                  <a href="?delete_task=<?= $task->id ?>" class="remove" onclick="return confirm('are you sure to delete this item?\n<?= $task->title ?>');"><i class="fa fa-trash-o"></i></a>
+
+                  <div class="info">
+                    <span>Created At <?= $task->created_at ?></span>
+                  </div>
+
+                </li>
+
+              <?php endforeach; ?>
+
             </ul>
           </div>
-          <div class="list">
-            <div class="title">Tomorrow</div>
-            <ul>
-              <li><i class="fa fa-square-o"></i><span>Find front end developer</span>
-                <div class="info"></div>
-              </li>
-            </ul>
-          </div>
+
         </div>
       </div>
     </div>

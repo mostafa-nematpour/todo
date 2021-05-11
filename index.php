@@ -6,8 +6,23 @@ use Hekmatinasser\Verta\Verta;
 // var_dump($v = new Verta());
 if (isset($_GET['delete_folder']) && is_numeric($_GET['delete_folder'])) {
     $d = deleteFolder($_GET['delete_folder']);
-    echo $d;
+    // echo $d;
 }
+
+
+
+if (isset($_GET['delete_task']) && is_numeric($_GET['delete_task'])) {
+    $d = deleteTasks($_GET['delete_task']);
+    // echo $d;
+}
+
+if (isset($_GET['foler_id']) && is_numeric($_GET['foler_id'])) {
+    $tasks = getTasks($_GET['foler_id']);
+    // echo $d;
+}else{
+    $tasks = getTasks();
+}
+
 $folders = getFolders();
-$tasks = getTasks();
+//  dd($tasks);
 include "tpl/tpl-index.php";
