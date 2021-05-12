@@ -20,6 +20,7 @@ if (isset($_GET['foler_id']) && is_numeric($_GET['foler_id'])) {
     $tasks = getTasks($_GET['foler_id']);
     // echo $d;
 }else{
+    $_GET['foler_id']=-1;
     $tasks = getTasks();
 }
 

@@ -163,7 +163,7 @@ a.remove:hover {
     color: #555;
 }
 
-.main .nav .menu ul li a .fa-folder-open {
+.main .nav .menu ul li.active a {
     text-decoration: none;
     color: #79BC46;
 }
