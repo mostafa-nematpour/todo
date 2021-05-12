@@ -43,10 +43,10 @@ function addFolder($folderName)
 
     return '{"response":' . $stmt->rowCount() . ',"id":' . $PDO->lastInsertId() . '}';
 }
-function getTasks($folder_id = -1)
+function getTasks($folder_id = 0)
 {
     $s = "";
-    if ($folder_id != -1) {
+    if ($folder_id != 0) {
         $s = " and folder_id= $folder_id";
     }
     global $PDO;
@@ -78,9 +78,21 @@ function deleteTasks($task_id)
 }
 
 
-function addTasks()
+function addTask($title, $folderId)
 {
-    return [1, 1, 2, 3, 4];
+
+    $current_user_id = getCurrentUserId();
+
+    global $PDO;
+    try {
+        $sql = "INSERT INTO `tasks` (`title`, `user_id`,`folder_id`) VALUES (:title, :current_user_id, :folderId);";
+        $stmt = $PDO->prepare($sql);
+        $stmt->execute([':title' => $title, ':current_user_id' => $current_user_id, ':folderId' => $folderId]);
+    } catch (Exception $e) {
+        diePage($e->getMessage(), "add task Faile");
+    }
+
+    return '{"response":' . $stmt->rowCount() . ',"id":' . $PDO->lastInsertId() . '}';
 }
 function removeTasks()
 {

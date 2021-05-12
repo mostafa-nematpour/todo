@@ -30,8 +30,8 @@
             <button class="btn clickable" id="addFolderBtn">+</button>
           </div>
           <ul class="folder-list">
-            <li class="<?= (($_GET["foler_id"]) == -1) ? 'active' : '' ?>">
-              <a href="?foler_id=-1"><i class="fa  <?= (($_GET["foler_id"]) == -1) ? 'fa-folder-open' : 'fa-folder' ?>"></i>All</a>
+            <li class="<?= (($_GET["foler_id"]) == 0) ? 'active' : '' ?>">
+              <a href="?foler_id=0"><i class="fa  <?= (($_GET["foler_id"]) == 0) ? 'fa-folder-open' : 'fa-folder' ?>"></i>All</a>
 
             </li>
 
@@ -97,6 +97,7 @@
 
   <script>
     $(document).ready(function() {
+      $('#taskNameInput').focus();
       $("#addFolderBtn").click(function(e) {
         var input = $('input#addFolderInput');
         // alert(input.val());
@@ -121,6 +122,35 @@
           }
         });
       })
+
+      $('#taskNameInput').on('keypress', function(e) {
+        e.stopPropagation();
+        if (e.which == 13) {
+          // alert(<?= $_GET["foler_id"] ?>);
+          $.ajax({
+            url: "process/ajaxHandler.php",
+            method: "post",
+            data: {
+              action: "addTask",
+              folderId: "<?= $_GET["foler_id"] ?>",
+              taskTitle: $('#taskNameInput').val()
+            },
+            success: function(response) {
+              //  alert(response);
+              if (IsValidJSONString(response)) {
+                var obj = JSON.parse(response);
+                if (obj["response"] == '1') {
+                  location.reload();
+                } else {
+                  console.log(response);
+                }
+              } else {
+                console.log("response are not json");
+              }
+            }
+          });
+        }
+      });
 
       function IsValidJSONString(str) {
         try {

@@ -9,8 +9,6 @@ if (isset($_GET['delete_folder']) && is_numeric($_GET['delete_folder'])) {
     // echo $d;
 }
 
-
-
 if (isset($_GET['delete_task']) && is_numeric($_GET['delete_task'])) {
     $d = deleteTasks($_GET['delete_task']);
     // echo $d;
@@ -20,7 +18,7 @@ if (isset($_GET['foler_id']) && is_numeric($_GET['foler_id'])) {
     $tasks = getTasks($_GET['foler_id']);
     // echo $d;
 }else{
-    $_GET['foler_id']=-1;
+    $_GET['foler_id']=0;
     $tasks = getTasks();
 }
 
