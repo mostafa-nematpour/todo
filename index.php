@@ -1,7 +1,16 @@
 <?php
 include "bootstrap/init.php";
 
+if (!isLoggedIn()){
+    //redirect
+    header("Location: ".site_url('auth.php'));
+}
+
+
 use Hekmatinasser\Verta\Verta;
+
+
+
 
 // var_dump($v = new Verta());
 if (isset($_GET['delete_folder']) && is_numeric($_GET['delete_folder'])) {
