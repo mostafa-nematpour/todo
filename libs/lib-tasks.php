@@ -94,6 +94,24 @@ function addTask($title, $folderId)
 
     return '{"response":' . $stmt->rowCount() . ',"id":' . $PDO->lastInsertId() . '}';
 }
+
+
+function doneSwitch($taskId)
+{
+    $current_user_id = getCurrentUserId();
+
+    global $PDO;
+    try {
+        $sql = "Update `tasks` set is_done = 1 - is_done where user_id = :userId and  id = :taskId;";
+        $stmt = $PDO->prepare($sql);
+        $stmt->execute([':taskId' => $taskId, 'userId' => $current_user_id]);
+    } catch (Exception $e) {
+        diePage($e->getMessage(), "Switch task Faile");
+    }
+
+    return '{"response":' . $stmt->rowCount() . ',"id":' . $PDO->lastInsertId() . '}';
+}
+
 function removeTasks()
 {
     return [1, 1, 2, 3, 4];

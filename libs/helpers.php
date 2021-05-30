@@ -28,3 +28,7 @@ function dd($var)
     echo "</pre> <hr>";
 
 }
+
+function site_url ($uri = ''){
+    return BASE_URL.$uri;
+}

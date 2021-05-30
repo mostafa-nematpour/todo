@@ -31,7 +31,7 @@
           </div>
           <ul class="folder-list">
             <li class="<?= (($_GET["foler_id"]) == 0) ? 'active' : '' ?>">
-              <a href="?foler_id=0"><i class="fa  <?= (($_GET["foler_id"]) == 0) ? 'fa-folder-open' : 'fa-folder' ?>"></i>All</a>
+              <a href="<?= site_url('?foler_id=0') ?>"><i class="fa  <?= (($_GET["foler_id"]) == 0) ? 'fa-folder-open' : 'fa-folder' ?>"></i>All</a>
 
             </li>
 
@@ -70,7 +70,7 @@
                 <?php foreach ($tasks as $task) : ?>
 
                   <li class="<?= $task->is_done ? 'checked' : ''; ?>">
-                    <i class="<?= $task->is_done ? 'fa fa-check-square-o' : 'fa fa-square-o'; ?>"></i>
+                    <i data-taskId="<?= $task->id ?>" class="isDone clickable fa <?= $task->is_done ? 'fa-check-square-o' : 'fa-square-o'; ?>"></i>
                     <span><?= $task->title ?></span>
                     <a href="?delete_task=<?= $task->id ?>" class="remove" onclick="return confirm('are you sure to delete this item?\n<?= $task->title ?>');"><i class="fa fa-trash-o"></i></a>
 
@@ -151,6 +151,35 @@
           });
         }
       });
+
+
+      $('.isDone').click(function(e) {
+        var tId = $(this).attr('data-taskId');
+
+        $.ajax({
+          url: "process/ajaxHandler.php",
+          method: "post",
+          data: {
+            action: "doneSwitch",
+            taskId: tId
+          },
+          success: function(response) {
+            //  alert(response);
+            if (IsValidJSONString(response)) {
+              var obj = JSON.parse(response);
+              if (obj["response"] == '1') {
+                location.reload();
+              } else {
+                console.log(response);
+              }
+            } else {
+              console.log(response);
+            }
+          }
+        });
+
+      });
+
 
       function IsValidJSONString(str) {
         try {

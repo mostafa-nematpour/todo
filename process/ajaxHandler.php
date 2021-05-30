@@ -17,23 +17,26 @@ switch ($_POST['action']) {
         echo addFolder($_POST['folderName']);
         break;
     case 'addTask':
-        // var_dump($_POST);
         $taskTitle = $_POST['taskTitle'] ?? "";
         $folderId = $_POST['folderId'];
         if (!isset($taskTitle) || strlen($taskTitle) < 3) {
-            // echo "Task name must be longer than two letters";
             die();
         }
-
         if (!isset($folderId) || empty($folderId)) {
-            // echo "folder id error";
             die();
         }
-
         echo addTask($taskTitle, $folderId);
-
         break;
 
+        case 'doneSwitch':
+            $taskId=$_POST['taskId'];
+            if (!isset($taskId) || !is_numeric($taskId)) {
+                echo "id is invalid";
+                die();
+            }
+            echo doneSwitch($taskId);
+            // dd($_POST);
+            break;
     default:
         diePage("Invalid Action", "Access denied");
 }
