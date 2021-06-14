@@ -1,12 +1,23 @@
 <?php
 include "bootstrap/init.php";
 
+if (isset($_GET['logout'])){
+    
+    logout();
+}
+
 if (!isLoggedIn()){
     //redirect
     header("Location: ".site_url('auth.php'));
 }
 
 
+
+
+
+
+
+$user=getLoggedInUser();
 use Hekmatinasser\Verta\Verta;
 
 
